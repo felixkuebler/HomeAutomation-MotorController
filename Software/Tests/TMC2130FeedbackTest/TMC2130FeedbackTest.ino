@@ -1,50 +1,77 @@
 /*
 Initializes the library and turns the motor in alternating directions.
 */
-#define EN_PIN    9  // Nano v3:  16 Mega:  38  //enable (CFG6)
-#define DIR_PIN   7  //      19      55  //direction
-#define STEP_PIN  8  //      18      54  //step
-#define CS_PIN    10  //      17      64  //chip select
+#define EN_PIN    9  
+#define DIR_PIN   7 
+#define STEP_PIN  8 
 
 bool dir = true;
 
 
-#include <TMC2130Stepper.h>
-TMC2130Stepper TMC2130 = TMC2130Stepper(EN_PIN, DIR_PIN, STEP_PIN, CS_PIN);
-
 void setup() {
   Serial.begin(9600);
-  TMC2130.begin(); // Initiate pins and registeries
-  TMC2130.SilentStepStick2130(600); // Set stepper current to 600mA
-  TMC2130.stealthChop(1); // Enable extremely quiet stepping
-  TMC2130.sg_stall_value(-50);
-  
+
+  pinMode(EN_PIN, OUTPUT);
+  pinMode(DIR_PIN, OUTPUT);
+  pinMode(STEP_PIN, OUTPUT);
+
   digitalWrite(EN_PIN, LOW);
 }
 
-void loop() {
+double sample_average = 0;
+int sample_counter = 0;
+int sample_max_count = 50;
 
-  if(TMC2130.sg_result())
+double thresh = 2.4;
+
+void loop() 
+{
+  
+  digitalWrite(STEP_PIN, !digitalRead(STEP_PIN));
+  //delayMicroseconds(80);
+
+
+
+  sample_average += (double)pow((512 - analogRead(A3)),2);
+  sample_counter++;
+  
+  if (sample_counter > sample_max_count) 
   {
-    Serial.println(TMC2130.sg_result(), DEC);
-  }
-  digitalWrite(STEP_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(STEP_PIN, LOW);
-  delayMicroseconds(10);
-  uint32_t ms = millis();
-  static uint32_t last_time = 0;
-  if ((ms - last_time) > 2000) {
-    if (dir) {
-      Serial.println("Dir -> 0");
-      TMC2130.shaft_dir(0);
-    } else {
-      Serial.println("Dir -> 1");
-      TMC2130.shaft_dir(1);
-    }
-    dir = !dir;
-    Serial.println(TMC2130.GCONF(), BIN);
+    sample_average = sqrt(sample_average);
+    sample_average/=(double)sample_counter;
 
-    last_time = ms;
+    Serial.println(sample_average);
+
+    if(sample_average > thresh)
+    {
+      Serial.println(sample_average);
+      digitalWrite(DIR_PIN, !digitalRead(DIR_PIN));
+    }
+    sample_average = 0;
+    sample_counter = 0;
+
+    
+    /*
+    int mVperAmp = 185; // use 100 for 20A Module and 66 for 30A Module
+    int RawValue= 0;
+    int ACSoffset = 2500; 
+    double Voltage = 0;
+    double Amps = 0;
+
+    RawValue = analogRead(A3);
+    Voltage = (RawValue / 1024.0) * 5000; // Gets you mV
+    Amps = ((Voltage - ACSoffset) / mVperAmp);
+    
+    
+    Serial.print("Raw Value = " ); // shows pre-scaled value 
+    Serial.print(RawValue); 
+    Serial.print("\t mV = "); // shows the voltage measured 
+    Serial.print(Voltage,3); // the '3' after voltage allows you to display 3 digits after decimal point
+    Serial.print("\t Amps = "); // shows the voltage measured 
+    Serial.println(Amps,3); // the '3' after voltage allows you to display 3 digits after decimal point
+    */
+    
+    //digitalWrite(DIR_PIN, !digitalRead(DIR_PIN));
+    //Serial.println(512 - analogRead(A3));
   }
 }

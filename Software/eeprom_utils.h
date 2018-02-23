@@ -65,8 +65,6 @@ void saveSettingsToEEPROM(wifi_obj wifi_info, motor_obj motor_info)
   addr = writeStringToEEPROM(addr, wifi_info.mqtt_broker);
 
   addr = writeStringToEEPROM(addr, motor_info.topic);
-  addr = writeStringToEEPROM(addr, motor_info.pin_endstop_LOW);
-  addr = writeStringToEEPROM(addr, motor_info.pin_endstop_HIGH);
   addr = writeStringToEEPROM(addr, motor_info.range_intern);
   addr = writeStringToEEPROM(addr, motor_info.range_extern);
 }
@@ -89,10 +87,6 @@ void loadSettingsFromEEPROM(wifi_obj &wifi_info, motor_obj &motor_info)
   
   addr = readStringFromEEPROM(addr, val);
   motor_info.topic=val;
-  addr = readStringFromEEPROM(addr, val);
-  motor_info.pin_endstop_LOW=val;
-  addr = readStringFromEEPROM(addr, val);
-  motor_info.pin_endstop_HIGH=val;
   addr = readStringFromEEPROM(addr, val);
   motor_info.range_intern=val;
   addr = readStringFromEEPROM(addr, val);

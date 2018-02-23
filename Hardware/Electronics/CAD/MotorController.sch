@@ -33,7 +33,7 @@ LIBS:ESP8266
 LIBS:HiLink
 LIBS:Nema17
 LIBS:TMC2130
-LIBS:iot_motor_controller_controller-cache
+LIBS:MotorController-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -284,7 +284,7 @@ F 3 "" H 7100 1700 50  0001 C CNN
 $EndComp
 NoConn ~ 7000 1400
 NoConn ~ 7000 1500
-Text GLabel 9100 2900 2    60   Input ~ 0
+Text GLabel 6100 3150 0    60   Input ~ 0
 MOTOR_ENABLE
 Wire Wire Line
 	8550 3450 8750 3450
@@ -346,12 +346,6 @@ Wire Wire Line
 	5900 1500 5800 1500
 Wire Wire Line
 	7000 1700 7100 1700
-Wire Wire Line
-	8550 2950 8950 2950
-Wire Wire Line
-	8950 2950 8950 2900
-Wire Wire Line
-	8950 2900 9100 2900
 Wire Wire Line
 	8550 2850 8850 2850
 Wire Wire Line
@@ -627,4 +621,6 @@ Wire Wire Line
 	3000 2625 2900 2625
 NoConn ~ 8250 5075
 NoConn ~ 6750 2850
+Wire Wire Line
+	6750 3150 6100 3150
 $EndSCHEMATC
