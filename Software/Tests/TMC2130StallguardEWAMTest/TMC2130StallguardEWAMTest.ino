@@ -15,8 +15,12 @@ Initializes the library and turns the motor in alternating directions.
 double current = 0;
 double factor = 0.6;
 
-double analog_noise_thresh = 0.2;
-double thresh = 484.1;
+double analog_noise_upper_thresh = 0.2;
+double upper_thresh = 120;
+double lower_thresh = 92;
+double activation_thresh = 100;
+bool enable_thresh = false;
+
 
 
 
@@ -47,13 +51,13 @@ void loop()
   delayMicroseconds(20);
 
   double analog_current = analogRead(A0);
-  if (analog_current > current + analog_noise_thresh)
+  if (analog_current > current + analog_noise_upper_thresh)
   {
-    current = (current + analog_noise_thresh) + factor * (current - (current + analog_noise_thresh));
+    current = (current + analog_noise_upper_thresh) + factor * (current - (current + analog_noise_upper_thresh));
   }
-  else if (analog_current < current - analog_noise_thresh)
+  else if (analog_current < current - analog_noise_upper_thresh)
   {
-    current = (current - analog_noise_thresh) + factor * (current - (current - analog_noise_thresh));
+    current = (current - analog_noise_upper_thresh) + factor * (current - (current - analog_noise_upper_thresh));
   }
   else
   {
@@ -64,7 +68,7 @@ void loop()
   {
     //Serial.print(analog_current);
     //Serial.print("\t");
-    Serial.print(thresh);
+    Serial.print(upper_thresh);
     Serial.print("\t");
     Serial.println(current);
 
@@ -72,26 +76,27 @@ void loop()
   }
   test_count++;
 
-  
-  if(current > thresh)
+  if (current >= activation_thresh && current < upper_thresh)
   {
-    //Serial.println(current);
+    enable_thresh = true;
+  }
+  
+  if(enable_thresh && current < lower_thresh)
+  {
+    current += 100;
+  }
 
+  
+  if(enable_thresh && current > upper_thresh)
+  {
     digitalWrite(DIR_PIN, !digitalRead(DIR_PIN));
-
-    /*
-    for (int i=0; i<1000; i++)
-    {
-        digitalWrite(STEP_PIN, !digitalRead(STEP_PIN));
-        delayMicroseconds(80);
-    }
-    */
     
     digitalWrite(EN_PIN, HIGH);
     delay(500);    
     digitalWrite(EN_PIN, LOW);
 
     current = 0;
+    enable_thresh=false;
 
      
   }

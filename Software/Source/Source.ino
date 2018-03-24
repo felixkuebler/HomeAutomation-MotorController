@@ -210,16 +210,23 @@ void mqttSubscribeCallback(char* topic, byte* payload, unsigned int length)
 
     double current = analogRead(motor_info.pin_current);
     long steps = 0;
+    bool enable_thresh = false;
     for ( ; steps < diff; steps++)
     {
+      if (!enable_thresh && current >= motor_info.activation_thresh && current < motor_info.upper_thresh)
+      {
+        enable_thresh = true;
+      }
+      
       digitalWrite(motor_info.pin_step, !digitalRead(motor_info.pin_step));
       delay(0);
     
-      if( isStallDetected(motor_info.pin_current, current))
+      if( enable_thresh && isStallDetected(motor_info, current))
       {    
         Serial.println("Stall Detected!");
         break;
       }
+
     }
     motor_info.state =  motor_info.state + (sign*steps);
     

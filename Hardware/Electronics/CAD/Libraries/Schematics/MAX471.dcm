@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MAX471
+D High-Side Current-Sense Amplifier
+F maxim/max471-max472.pdf
+$ENDCMP
+#
+#End Doc Library

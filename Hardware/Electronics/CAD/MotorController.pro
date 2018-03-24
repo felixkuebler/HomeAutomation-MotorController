@@ -1,4 +1,4 @@
-update=Samstag, 10. Februar 2018 21:23:03
+update=Freitag, 23. März 2018 00:24:06
 version=1
 last_client=kicad
 [pcbnew]
@@ -63,3 +63,4 @@ LibName31=Libraries/Schematics/ESP8266
 LibName32=Libraries/Schematics/HiLink
 LibName33=Libraries/Schematics/Nema17
 LibName34=Libraries/Schematics/TMC2130
+LibName35=Libraries/Schematics/MAX471
