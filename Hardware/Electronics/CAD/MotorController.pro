@@ -1,4 +1,4 @@
-update=Freitag, 23. März 2018 00:24:06
+update=Sonntag, 08. April 2018 04:22:15
 version=1
 last_client=kicad
 [pcbnew]
@@ -61,6 +61,5 @@ LibName29=contrib
 LibName30=valves
 LibName31=Libraries/Schematics/ESP8266
 LibName32=Libraries/Schematics/HiLink
-LibName33=Libraries/Schematics/Nema17
+LibName33=Libraries/Schematics/Nema
 LibName34=Libraries/Schematics/TMC2130
-LibName35=Libraries/Schematics/MAX471
