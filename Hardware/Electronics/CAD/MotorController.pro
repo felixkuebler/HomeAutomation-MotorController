@@ -1,4 +1,4 @@
-update=Sonntag, 15. April 2018 16:51:33
+update=Montag, 03. September 2018 20:26:37
 version=1
 last_client=kicad
 [pcbnew]
@@ -63,3 +63,4 @@ LibName31=Libraries/Schematics/ESP8266
 LibName32=Libraries/Schematics/HiLink
 LibName33=Libraries/Schematics/Nema
 LibName34=Libraries/Schematics/TMC2130
+LibName35=Libraries/Schematics/SW_DPST_x2

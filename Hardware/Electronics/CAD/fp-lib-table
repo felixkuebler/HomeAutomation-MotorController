@@ -1,7 +1,0 @@
-(fp_lib_table
-  (lib (name Nema)(type KiCad)(uri "$(KIPRJMOD)/Libraries/Footprints/Nema.pretty")(options "")(descr ""))
-  (lib (name StepStick)(type KiCad)(uri "$(KIPRJMOD)/Libraries/Footprints/StepStick.pretty")(options "")(descr ""))
-  (lib (name Terminal)(type KiCad)(uri "$(KIPRJMOD)/Libraries/Footprints/Terminal.pretty")(options "")(descr ""))
-  (lib (name HiLink)(type KiCad)(uri "$(KIPRJMOD)/Libraries/Footprints/HiLink.pretty")(options "")(descr ""))
-  (lib (name ESP8266)(type KiCad)(uri "$(KIPRJMOD)/Libraries/Footprints/ESP8266.pretty")(options "")(descr ""))
-)

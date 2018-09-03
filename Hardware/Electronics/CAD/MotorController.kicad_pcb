@@ -356,7 +356,7 @@
     (fp_text reference SW2 (at 0 -3.6 270) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value "Taster 9314" (at 0 3.7 270) (layer F.Fab)
+    (fp_text value "SMD 4x4mm Button" (at 0 3.7 270) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 1.45 -2.6) (end 2.55 -1.5) (layer F.Fab) (width 0.1))
